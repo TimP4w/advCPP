@@ -36,18 +36,17 @@ class smart_pointer {
     } 
 
     // Overload = operator. Decrease previous counter and if reaches 0, deallocate counter (but leave object?)
-    smart_pointer<T>& operator=(const smart_pointer<T>& p2) {
+    smart_pointer<T>& operator=(const smart_pointer<T> &p2) {
 
-        obj = p2.obj;
+        if(this==&p2) return *this;
         count->decrease();
         if(count->counter() == 0) {
             delete obj;
             delete count;
         }
+        obj = p2.obj;
         count = p2.count;
-
         count->increase();
-
         return *this;  // return to allow chaining
     }
 
